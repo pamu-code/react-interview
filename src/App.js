@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 
-/* Global array to be moved to restricted area visible array 
+/* Global array was moved to restricted area visible array 
 
 const todos = [
     {id: 1, name: 'Go to the supermarket', complete: false},
@@ -14,7 +14,7 @@ const todos = [
 */
 
 
-/* Class-based React component left here for reference
+/* Class-based App/ React component left here for reference
 
 class App extends React.Component {
     constructor(props) {
@@ -70,15 +70,7 @@ class App extends React.Component {
 
 function App (props) {
 
-//class App extends React.Component {
-//    constructor(props) {
-//        super(props);
-//        this.state = {
-//            newTodoName: '',
-//            todos: todos
-//        };
-//    }
-
+// global array moved here to restrict visibility
     const todos_initTable = [
     {id: 1, name: 'Go to the supermarket', complete: false},
     {id: 2, name: 'Call Alice', complete: false},
@@ -86,10 +78,14 @@ function App (props) {
     {id: 4, name: 'Do the dishes', complete: false},
     {id: 5, name: 'Change car tyres', complete: false}
     ];
-    var todoItemsList; //declaration moved here for function level visibility
+// this declaration moved here for function level visibility
+    var todoItemsList; 
 
+//state/setState React class implementation functionality replaced with useState React function implementation
     const [newTodoName, set_newTodoName] = useState('')
     const [todos, set_todos] = useState(todos_initTable)
+
+//methods before changed to named lambda functions
 
     const generateNewId = () => {
         return (todos.length + 1);
@@ -124,32 +120,28 @@ function App (props) {
 
     const onChange = (event) => {
         set_newTodoName(event.target.value)
-        //    this.setState({newTodoName: event.target.value});
+    //    this.setState({newTodoName: event.target.value});
     }
 
-//TÄMÄ PITÄÄ TEHDÄ TÄHÄN!
+    // logic created to remove items from the list
     const onRemoveClick = (id) => {
-        //implement this logic
+        //TASK WAS:implement this logic
 
+        // make working copy from state object
         todoItemsList = todos.slice();
+
+        // loop array until correct one found
         for (let i = 0; i < todos.length; i++) {
             if (todoItemsList[i].id === id) {
+                // remove item
                 todoItemsList.splice(i, 1);
-//                let newComplete = !todoItemsList[i].complete; //toggle
-//                todoItemsList[i].complete = newComplete;
+                // exit from the loop after task done
                 break;
             }
         }
+
+        // update state object and get the change rendered
         set_todos(todoItemsList)
-
-
-
-
-
-
-
-
-
 
         console.log('Remove Item!');
     }
@@ -183,10 +175,13 @@ function App (props) {
             </div>
         );
 //    }
-} //React function component App
+} //React function component App/ ends here
 
 //class Hello extends React.Component {
 //    render() {
+
+
+//React function component Hello/
 const Hello = (props) => {
         var color;
         var text;
@@ -206,22 +201,26 @@ const Hello = (props) => {
                     className="btn"
                     onClick={() => { 
                         props.onClick(props.todo.id)} 
-                    }>
+                    }
+                    data-testid="toggle">
                     {text}
                 </button>
                 <button
                     className="btn"
                     onClick={() => {
                         props.onRemoveClick(props.todo.id) }
-                    }>
+                    }
+                    >
                     Remove from list
                 </button>
             </div>
-        );
-    } // React function component Hello
+        );//return
+    } // React function component Hello/ ends here
 
 //class Bar extends React.Component {
 //    render() {
+
+// React function component Bar/
 const Bar = (props) => {
     return (
             <form
@@ -241,6 +240,10 @@ const Bar = (props) => {
                 </button>
             </form>
         );
-    } // React function component Bar
+    } // React function component Bar/ ends here
 
-export default App;
+// App/ exported to index.js
+export {App};
+
+// Hello/ exported to App.test.js
+export {Hello};
